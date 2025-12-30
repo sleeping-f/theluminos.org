@@ -1,10 +1,11 @@
 import LightPillar from './LightPillar/LightPillar';
 import './firstdivLanding.css';
+import ShinyText from '../components/ShinyText/ShinyText';
 
 function FirstDivLanding() {
     return (
 
-        <div style={{ width: '100%', height: '800px', position: 'relative' }}>
+        <div className="landing-container">
             <LightPillar
                 topColor="#6b0986"
                 bottomColor="#161a98"
@@ -18,6 +19,31 @@ function FirstDivLanding() {
                 interactive={true}
                 mixBlendMode="normal"
             />
+            <div className="content-center">
+
+                <ShinyText className='main-heading'
+                    text="A New Class Of Elegant Software Solutions"
+                    speed={3.3}
+                    delay={0}
+                    color="#c6c6c6ff"
+                    shineColor="#ffffff"
+                    spread={120}
+                    direction="left"
+                    yoyo={true}
+                    pauseOnHover={false}
+                />
+                <ShinyText className='tagline'
+                    text="Designed With Precision. Built for Growth."
+                    speed={3.3}
+                    delay={0}
+                    color="#c6c6c6ff"
+                    shineColor="#ffffff"
+                    spread={120}
+                    direction="left"
+                    yoyo={true}
+                    pauseOnHover={false}
+                />
+            </div>
         </div>
     );
 }
