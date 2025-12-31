@@ -1,12 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LightPillar from './LightPillar/LightPillar';
-import './firstdivLanding.css';
-import ShinyText from '../components/ShinyText/ShinyText';
+import './firstSectionLanding.css';
+import ShinyText from './ShinyText/ShinyText';
 import LoadingScreen from './loadingScreen';
 import Navbar from './navbar';
 
 function FirstDivLanding() {
     const [showLoader, setShowLoader] = useState(true);
+    const [rotation, setRotation] = useState(70);
+
+    useEffect(() => {
+        const handleResize = () => {
+            // Change 50 to whatever value you want for mobile
+            setRotation(window.innerWidth < 768 ? 325 : 70);
+        };
+
+        handleResize(); // Set initial value
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
         <div>
@@ -17,7 +29,7 @@ function FirstDivLanding() {
             {!showLoader && (
                 <div className="landing-container">
 
-                    <LightPillar
+                    <LightPillar className='bg'
                         topColor="#E6BC82"
                         bottomColor="rgba(39, 36, 52, 1)"
                         intensity={1.0}
@@ -26,7 +38,7 @@ function FirstDivLanding() {
                         pillarWidth={3.8}
                         pillarHeight={0.5}
                         noiseIntensity={0.5}
-                        pillarRotation={70}
+                        pillarRotation={rotation}
                         interactive={true}
                         mixBlendMode="normal"
                     />

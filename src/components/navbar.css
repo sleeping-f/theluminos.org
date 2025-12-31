@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap');
 
 html,
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Quicksand", sans-serif;
+    font-family: "Funnel Display", sans-serif;
     font-size: 62.5%;
     font-size: 10px;
 }
@@ -17,38 +18,55 @@ body {
 
 .nav {
     width: 100%;
-    height: 65px;
+    height: 75px;
     position: fixed;
-    line-height: 65px;
-    text-align: center;
+    line-height: 75px;
+    text-align: end;
     z-index: 9999;
+
 }
 
 .nav div.logo {
     float: left;
     width: auto;
     height: auto;
-    padding-left: 3rem;
+    padding-left: 4rem;
+    display: flex;
+    align-items: center;
+    height: 75px;
+    /* Match navbar height */
 }
 
 .nav div.logo a {
     text-decoration: none;
-    color: #fff;
     font-size: 2.5rem;
+    display: flex;
+    align-items: center;
 }
 
-.nav div.logo a:hover {
-    color: #00E676;
+.nav div.logo img {
+    height: 100px;
+    /* Adjust based on your logo's aspect ratio */
+    width: auto;
+    transition: transform 0.3s ease;
+
 }
+
+.nav div.logo a:hover img {
+    transform: scale(1.05);
+}
+
+
 
 .nav div.main_list {
-    height: 65px;
+    height: 75px;
     float: right;
+    padding-right: 6%;
 }
 
 .nav div.main_list ul {
     width: 100%;
-    height: 65px;
+    height: 75px;
     display: flex;
     list-style: none;
     margin: 0;
@@ -57,7 +75,7 @@ body {
 
 .nav div.main_list ul li {
     width: auto;
-    height: 65px;
+    height: 75px;
     padding: 0;
     padding-right: 3rem;
 }
@@ -65,7 +83,7 @@ body {
 .nav div.main_list ul li a {
     text-decoration: none;
     color: #fff;
-    line-height: 65px;
+    line-height: 75px;
     font-size: 2.4rem;
 }
 
@@ -76,13 +94,7 @@ body {
 
 /* Home section */
 
-.home {
-    width: 100%;
-    height: 100vh;
-    background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b0f6908fa5e81286213c7211276e6b3d&auto=format&fit=crop&w=1500&q=80);
-    background-position: center top;
-    background-size: cover;
-}
+
 
 .navTrigger {
     display: none;
@@ -126,7 +138,7 @@ body {
         position: fixed;
         top: 0;
         left: 0;
-        background-color: #111;
+        background-color: #151E2F;
         animation: fadeIn 0.4s ease-in-out;
         z-index: 9998;
         /* Ensure it's below the navTrigger if necessary, but high enough to cover content */
@@ -188,7 +200,7 @@ body {
 }
 
 .navTrigger i {
-    background-color: #fff;
+    background-color: #E5BD81;
     border-radius: 2px;
     content: '';
     display: block;
@@ -387,7 +399,7 @@ body {
 
 .affix {
     padding: 0;
-    background-color: #111;
+    background-color: #151e2ff3;
 }
 
 
