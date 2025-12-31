@@ -3,6 +3,7 @@ import LightPillar from './LightPillar/LightPillar';
 import './firstdivLanding.css';
 import ShinyText from '../components/ShinyText/ShinyText';
 import LoadingScreen from './loadingScreen';
+import Navbar from './navbar';
 
 function FirstDivLanding() {
     const [showLoader, setShowLoader] = useState(true);
@@ -15,9 +16,10 @@ function FirstDivLanding() {
             />
             {!showLoader && (
                 <div className="landing-container">
+
                     <LightPillar
-                        topColor="#6b0986"
-                        bottomColor="#161a98"
+                        topColor="#E6BC82"
+                        bottomColor="rgba(39, 36, 52, 1)"
                         intensity={1.0}
                         rotationSpeed={0.7}
                         glowAmount={0.002}
@@ -28,6 +30,7 @@ function FirstDivLanding() {
                         interactive={true}
                         mixBlendMode="normal"
                     />
+                    <Navbar />
                     <div className="content-center">
 
                         <ShinyText className='main-heading'
