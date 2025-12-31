@@ -88,7 +88,7 @@ body {
 }
 
 .nav div.main_list ul li a:hover {
-    color: #00E676;
+    color: #E6BC82;
 }
 
 
@@ -399,7 +399,7 @@ body {
 
 .affix {
     padding: 0;
-    background-color: #151e2ff3;
+    background-color: #151e2ffa;
 }
 
 
@@ -422,5 +422,9 @@ body {
 @media all and (max-width:700px) {
     .myP {
         padding: 2%;
+    }
+
+    .nav div.logo {
+        padding-left: 1rem;
     }
 }

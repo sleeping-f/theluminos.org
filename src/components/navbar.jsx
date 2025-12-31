@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.png';
 import './navbar.css';
 import ShinyText from './ShinyText/ShinyText';
+import DecryptedText from './DecryptedText/DecryptedText';
 
 const Navbar = () => {
     const [affix, setAffix] = useState(false);
@@ -43,14 +44,39 @@ const Navbar = () => {
                             yoyo={true}
                             pauseOnHover={false}
                         />
+
                     </a>
                 </div>
                 <div id="mainListDiv" className={`main_list ${menuOpen ? 'show_list' : ''}`}>
                     <ul className="navlinks">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Portfolio</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#"><DecryptedText
+                            text="Work"
+                            speed={42}
+                            maxIterations={22}
+                            revealDirection="start"
+                            animateOn="hover"
+                        /></a></li>
+                        <li><a href="#"><DecryptedText
+                            text="About"
+                            speed={42}
+                            maxIterations={22}
+                            revealDirection="start"
+                            animateOn="hover"
+                        /></a></li>
+                        <li><a href="#"><DecryptedText
+                            text="Services"
+                            speed={42}
+                            maxIterations={22}
+                            revealDirection="start"
+                            animateOn="hover"
+                        /></a></li>
+                        <li><a href="#"><DecryptedText
+                            text="Contact"
+                            speed={42}
+                            maxIterations={22}
+                            revealDirection="start"
+                            animateOn="hover"
+                        /></a></li>
                     </ul>
                 </div>
                 <span className={`navTrigger ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
