@@ -7,6 +7,7 @@
 
 	--ln-ease: cubic-bezier(0.22, 1, 0.36, 1);
 	--ln-ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+	--ln-ease-curtain: cubic-bezier(0.2, 0.95, 0.15, 1);
 
 	/* Total must stay <= 2000ms per requirement */
 	--ln-t-blank: 90ms;
@@ -15,8 +16,8 @@
 	--ln-t-shift: 260ms;
 	--ln-t-flip: 280ms;
 	--ln-t-hold: 240ms;
-	--ln-t-curtain: 390ms;
-	--ln-t-gap: 0ms;
+	--ln-t-curtain: 620ms;
+	--ln-t-gap: 50ms;
 
 	/* Derived delays */
 	--ln-d-draw: var(--ln-t-blank);
@@ -136,13 +137,13 @@
 .ln-loader.is-running .ln-curtain--top {
 	animation:
 		lnBgToEnd var(--ln-t-flip) var(--ln-ease-soft) var(--ln-d-flip) forwards,
-		lnCurtainTop var(--ln-t-curtain) var(--ln-ease) var(--ln-d-curtain) forwards;
+		lnCurtainTop var(--ln-t-curtain) var(--ln-ease-curtain) var(--ln-d-curtain) forwards;
 }
 
 .ln-loader.is-running .ln-curtain--bottom {
 	animation:
 		lnBgToEnd var(--ln-t-flip) var(--ln-ease-soft) var(--ln-d-flip) forwards,
-		lnCurtainBottom var(--ln-t-curtain) var(--ln-ease) var(--ln-d-curtain) forwards;
+		lnCurtainBottom var(--ln-t-curtain) var(--ln-ease-curtain) var(--ln-d-curtain) forwards;
 }
 
 @keyframes lnStageOut {
@@ -223,26 +224,34 @@
 
 /* Phase 4: vertical curtain reveal */
 @keyframes lnCurtainTop {
-	from {
+	0% {
 		opacity: 1;
-		transform: translateY(0);
+		transform: translate3d(0, 0, 0);
 	}
 
-	to {
+	72% {
+		transform: translate3d(0, -112%, 0);
+	}
+
+	100% {
 		opacity: 1;
-		transform: translateY(-105%);
+		transform: translate3d(0, -105%, 0);
 	}
 }
 
 @keyframes lnCurtainBottom {
-	from {
+	0% {
 		opacity: 1;
-		transform: translateY(0);
+		transform: translate3d(0, 0, 0);
 	}
 
-	to {
+	72% {
+		transform: translate3d(0, 112%, 0);
+	}
+
+	100% {
 		opacity: 1;
-		transform: translateY(105%);
+		transform: translate3d(0, 105%, 0);
 	}
 }
 

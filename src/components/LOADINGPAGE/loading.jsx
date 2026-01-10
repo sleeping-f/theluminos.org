@@ -21,7 +21,7 @@ const defaultConfig = {
 		shiftMs: 700,
 		flipMs: 220,
 		holdMs: 280,
-		curtainMs: 900,
+		curtainMs: 1800,
 		gapMs: 0,
 	},
 };
