@@ -91,18 +91,34 @@
 	pointer-events: none;
 	will-change: transform, background-color;
 	opacity: 1;
+	box-shadow: none;
+}
+
+.ln-curtain::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.ln-curtain--top::after {
 	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.ln-curtain--bottom::after {
+	box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.22);
 }
 
 .ln-curtain--top {
 	top: 0;
-	height: 50vh;
+	height: calc(50vh + 1px);
 	transform: translateY(0);
 }
 
 .ln-curtain--bottom {
 	bottom: 0;
-	height: 50vh;
+	height: calc(50vh + 1px);
 	transform: translateY(0);
 }
 
@@ -138,6 +154,10 @@
 	animation:
 		lnBgToEnd var(--ln-t-flip) var(--ln-ease-soft) var(--ln-d-flip) forwards,
 		lnCurtainTop var(--ln-t-curtain) var(--ln-ease-curtain) var(--ln-d-curtain) forwards;
+}
+
+.ln-loader.is-running .ln-curtain::after {
+	animation: lnCurtainShadowIn 1ms linear var(--ln-d-curtain) forwards;
 }
 
 .ln-loader.is-running .ln-curtain--bottom {
@@ -252,6 +272,12 @@
 	100% {
 		opacity: 1;
 		transform: translate3d(0, 105%, 0);
+	}
+}
+
+@keyframes lnCurtainShadowIn {
+	to {
+		opacity: 1;
 	}
 }
 
