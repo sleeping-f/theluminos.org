@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useEffect, useState } from 'react';
 import LightPillar from './LightPillar/LightPillar';
 import './firstSectionLanding.css';
 import ShinyText from './ShinyText/ShinyText';
@@ -11,11 +11,10 @@ function FirstDivLanding() {
 
     useEffect(() => {
         const handleResize = () => {
-            // Change 50 to whatever value you want for mobile
             setRotation(window.innerWidth < 768 ? 325 : 70);
         };
 
-        handleResize(); // Set initial value
+        handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -34,51 +33,54 @@ function FirstDivLanding() {
                     },
                 }}
             />
-            {!showLoader && (
-                <div className="landing-container">
 
-                    <LightPillar className='bg'
-                        topColor="#E6BC82"
-                        bottomColor="rgba(39, 36, 52, 1)"
-                        intensity={1.0}
-                        rotationSpeed={0.7}
-                        glowAmount={0.002}
-                        pillarWidth={3.8}
-                        pillarHeight={0.5}
-                        noiseIntensity={0.5}
-                        pillarRotation={rotation}
-                        interactive={true}
-                        mixBlendMode="normal"
+            <div className={`landing-container ${showLoader ? 'is-loading' : ''}`}>
+                <LightPillar
+                    className="bg"
+                    topColor="#E6BC82"
+                    bottomColor="rgba(39, 36, 52, 1)"
+                    intensity={1.0}
+                    rotationSpeed={0.7}
+                    glowAmount={0.002}
+                    pillarWidth={3.8}
+                    pillarHeight={0.5}
+                    noiseIntensity={0.5}
+                    pillarRotation={rotation}
+                    interactive={true}
+                    mixBlendMode="normal"
+                />
+
+                <Navbar />
+
+                <div className="content-center">
+                    <ShinyText
+                        className="main-heading"
+                        text="A New Class Of Elegant Software Solutions"
+                        speed={3.3}
+                        delay={0}
+                        color="#c6c6c6ff"
+                        shineColor="#ffffff"
+                        spread={120}
+                        direction="left"
+                        yoyo={true}
+                        pauseOnHover={false}
                     />
-                    <Navbar />
-                    <div className="content-center">
-
-                        <ShinyText className='main-heading'
-                            text="A New Class Of Elegant Software Solutions"
-                            speed={3.3}
-                            delay={0}
-                            color="#c6c6c6ff"
-                            shineColor="#ffffff"
-                            spread={120}
-                            direction="left"
-                            yoyo={true}
-                            pauseOnHover={false}
-                        />
-                        <ShinyText className='tagline'
-                            text="Designed With Precision. Built for Growth."
-                            speed={3.3}
-                            delay={0}
-                            color="#c6c6c6ff"
-                            shineColor="#ffffff"
-                            spread={120}
-                            direction="left"
-                            yoyo={true}
-                            pauseOnHover={false}
-                        />
-                    </div>
+                    <ShinyText
+                        className="tagline"
+                        text="Designed With Precision. Built for Growth."
+                        speed={3.3}
+                        delay={0}
+                        color="#c6c6c6ff"
+                        shineColor="#ffffff"
+                        spread={120}
+                        direction="left"
+                        yoyo={true}
+                        pauseOnHover={false}
+                    />
                 </div>
-            )}
+            </div>
         </div>
     );
 }
+
 export default FirstDivLanding;

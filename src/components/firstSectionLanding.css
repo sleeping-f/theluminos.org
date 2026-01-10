@@ -12,6 +12,16 @@ body {
     position: relative;
 }
 
+.landing-container.is-loading {
+    pointer-events: none;
+    user-select: none;
+}
+
+.landing-container.is-loading {
+    pointer-events: none;
+    user-select: none;
+}
+
 .bg {
     position: absolute;
     width: 100%;

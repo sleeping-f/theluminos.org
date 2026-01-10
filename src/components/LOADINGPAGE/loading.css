@@ -14,6 +14,7 @@
 	--ln-t-fill: 170ms;
 	--ln-t-shift: 260ms;
 	--ln-t-flip: 280ms;
+	--ln-t-hold: 240ms;
 	--ln-t-curtain: 390ms;
 	--ln-t-gap: 0ms;
 
@@ -22,14 +23,14 @@
 	--ln-d-fill: calc(var(--ln-t-blank) + var(--ln-t-draw) + var(--ln-t-gap));
 	--ln-d-shift: calc(var(--ln-d-fill) + var(--ln-t-fill) + var(--ln-t-gap));
 	--ln-d-flip: calc(var(--ln-d-shift) + var(--ln-t-shift) + var(--ln-t-gap));
-	--ln-d-curtain: calc(var(--ln-d-flip) + var(--ln-t-flip) + var(--ln-t-gap));
+	--ln-d-curtain: calc(var(--ln-d-flip) + var(--ln-t-flip) + var(--ln-t-hold) + var(--ln-t-gap));
 
 	position: fixed;
 	inset: 0;
 	z-index: 10000;
 	display: grid;
 	place-items: center;
-	background: var(--ln-bg-start);
+	background: transparent;
 	isolation: isolate;
 }
 
@@ -80,27 +81,16 @@
 	white-space: nowrap;
 }
 
-/* Blue layer that "flips" in behind the content */
-.ln-bgFlip {
-	position: absolute;
-	inset: 0;
-	background: var(--ln-bg-end);
-	z-index: 1;
-	transform-origin: center;
-	transform: perspective(1200px) rotateX(-88deg) scaleY(0.02);
-	opacity: 0;
-	will-change: transform, opacity;
-}
-
 .ln-curtain {
 	position: absolute;
 	left: 0;
 	width: 100%;
-	background: var(--ln-bg-end);
-	z-index: 3;
+	background: var(--ln-bg-start);
+	z-index: 1;
 	pointer-events: none;
-	will-change: transform;
-	opacity: 0;
+	will-change: transform, background-color;
+	opacity: 1;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
 }
 
 .ln-curtain--top {
@@ -121,7 +111,9 @@
 }
 
 .ln-loader.is-running .ln-stage {
-	animation: lnShow 1ms linear var(--ln-t-blank) both;
+	animation:
+		lnShow 1ms linear var(--ln-t-blank) both,
+		lnStageOut 220ms var(--ln-ease-soft) var(--ln-d-curtain) forwards;
 }
 
 .ln-loader.is-running .ln-markPath {
@@ -141,16 +133,23 @@
 	animation: lnShift var(--ln-t-shift) var(--ln-ease) var(--ln-d-shift) forwards;
 }
 
-.ln-loader.is-running .ln-bgFlip {
-	animation: lnFlipAway var(--ln-t-flip) var(--ln-ease) var(--ln-d-flip) forwards;
-}
-
 .ln-loader.is-running .ln-curtain--top {
-	animation: lnCurtainTop var(--ln-t-curtain) var(--ln-ease) var(--ln-d-curtain) forwards;
+	animation:
+		lnBgToEnd var(--ln-t-flip) var(--ln-ease-soft) var(--ln-d-flip) forwards,
+		lnCurtainTop var(--ln-t-curtain) var(--ln-ease) var(--ln-d-curtain) forwards;
 }
 
 .ln-loader.is-running .ln-curtain--bottom {
-	animation: lnCurtainBottom var(--ln-t-curtain) var(--ln-ease) var(--ln-d-curtain) forwards;
+	animation:
+		lnBgToEnd var(--ln-t-flip) var(--ln-ease-soft) var(--ln-d-flip) forwards,
+		lnCurtainBottom var(--ln-t-curtain) var(--ln-ease) var(--ln-d-curtain) forwards;
+}
+
+@keyframes lnStageOut {
+	to {
+		opacity: 0;
+		transform: translateY(-6px);
+	}
 }
 
 @keyframes lnShow {
@@ -201,16 +200,10 @@
 	}
 }
 
-/* Phase 3: background flips to blue */
-@keyframes lnFlipAway {
-	0% {
-		transform: perspective(1200px) rotateX(-88deg) scaleY(0.02);
-		opacity: 0;
-	}
-
-	100% {
-		transform: perspective(1200px) rotateX(0deg) scaleY(1);
-		opacity: 1;
+/* Phase 3: instant background swap to blue */
+@keyframes lnBgToEnd {
+	to {
+		background-color: var(--ln-bg-end);
 	}
 }
 
@@ -257,7 +250,6 @@
 	.ln-loader.is-running .ln-markPath,
 	.ln-loader.is-running .ln-word,
 	.ln-loader.is-running .ln-lockup,
-	.ln-loader.is-running .ln-bgFlip,
 	.ln-loader.is-running .ln-curtain {
 		animation: none !important;
 	}
@@ -277,10 +269,6 @@
 		opacity: 1;
 		transform: none;
 		color: var(--ln-mark-end);
-	}
-
-	.ln-bgFlip {
-		opacity: 0;
 	}
 
 	.ln-curtain {

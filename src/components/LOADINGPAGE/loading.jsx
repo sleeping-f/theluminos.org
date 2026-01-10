@@ -19,7 +19,8 @@ const defaultConfig = {
 		drawMs: 1600,
 		fillMs: 450,
 		shiftMs: 700,
-		flipMs: 800,
+		flipMs: 220,
+		holdMs: 280,
 		curtainMs: 900,
 		gapMs: 0,
 	},
@@ -39,6 +40,7 @@ function LoadingPage({ isVisible = true, onLoadingComplete, config }) {
 			timings.fillMs +
 			timings.shiftMs +
 			timings.flipMs +
+			(timings.holdMs ?? 0) +
 			timings.curtainMs +
 			timings.gapMs * 5;
 
@@ -134,6 +136,7 @@ function LoadingPage({ isVisible = true, onLoadingComplete, config }) {
 					'--ln-t-fill': `${mergedConfig.timings.fillMs}ms`,
 					'--ln-t-shift': `${mergedConfig.timings.shiftMs}ms`,
 					'--ln-t-flip': `${mergedConfig.timings.flipMs}ms`,
+					'--ln-t-hold': `${mergedConfig.timings.holdMs ?? 0}ms`,
 					'--ln-t-curtain': `${mergedConfig.timings.curtainMs}ms`,
 					'--ln-t-gap': `${mergedConfig.timings.gapMs}ms`,
 				}
@@ -142,8 +145,6 @@ function LoadingPage({ isVisible = true, onLoadingComplete, config }) {
 			aria-live="polite"
 			aria-label="Loading"
 		>
-			<div className="ln-bgFlip" aria-hidden="true" />
-
 			<div className="ln-stage" aria-hidden="true">
 				<div className="ln-lockup">
 					<svg
