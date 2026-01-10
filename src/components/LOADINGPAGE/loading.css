@@ -1,0 +1,289 @@
+.ln-loader {
+	/* Configurable knobs */
+	--ln-bg-start: #ffffff;
+	--ln-bg-end: #141d2f;
+	--ln-mark-start: #000000;
+	--ln-mark-end: #d7b07a;
+
+	--ln-ease: cubic-bezier(0.22, 1, 0.36, 1);
+	--ln-ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+	/* Total must stay <= 2000ms per requirement */
+	--ln-t-blank: 90ms;
+	--ln-t-draw: 650ms;
+	--ln-t-fill: 170ms;
+	--ln-t-shift: 260ms;
+	--ln-t-flip: 280ms;
+	--ln-t-curtain: 390ms;
+	--ln-t-gap: 0ms;
+
+	/* Derived delays */
+	--ln-d-draw: var(--ln-t-blank);
+	--ln-d-fill: calc(var(--ln-t-blank) + var(--ln-t-draw) + var(--ln-t-gap));
+	--ln-d-shift: calc(var(--ln-d-fill) + var(--ln-t-fill) + var(--ln-t-gap));
+	--ln-d-flip: calc(var(--ln-d-shift) + var(--ln-t-shift) + var(--ln-t-gap));
+	--ln-d-curtain: calc(var(--ln-d-flip) + var(--ln-t-flip) + var(--ln-t-gap));
+
+	position: fixed;
+	inset: 0;
+	z-index: 10000;
+	display: grid;
+	place-items: center;
+	background: var(--ln-bg-start);
+	isolation: isolate;
+}
+
+.ln-stage {
+	position: relative;
+	z-index: 2;
+	display: grid;
+	place-items: center;
+	padding: 24px;
+}
+
+.ln-lockup {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	transform: translateX(0);
+}
+
+.ln-mark {
+	width: clamp(82px, 11vw, 120px);
+	height: auto;
+	display: block;
+	filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+}
+
+.ln-markPath {
+	--ln-path-len: 1000;
+	fill: var(--ln-mark-start);
+	fill-opacity: 0;
+	stroke: var(--ln-mark-start);
+	stroke-width: 1.25px;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	vector-effect: non-scaling-stroke;
+	stroke-dasharray: var(--ln-path-len);
+	stroke-dashoffset: var(--ln-path-len);
+}
+
+.ln-word {
+	font-family: "Playfair Display", serif;
+	font-weight: 700;
+	font-size: clamp(34px, 4.5vw, 56px);
+	letter-spacing: 0.4px;
+	color: var(--ln-mark-start);
+	opacity: 0;
+	transform: translateX(-10px);
+	will-change: opacity, transform;
+	white-space: nowrap;
+}
+
+/* Blue layer that "flips" in behind the content */
+.ln-bgFlip {
+	position: absolute;
+	inset: 0;
+	background: var(--ln-bg-end);
+	z-index: 1;
+	transform-origin: center;
+	transform: perspective(1200px) rotateX(-88deg) scaleY(0.02);
+	opacity: 0;
+	will-change: transform, opacity;
+}
+
+.ln-curtain {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	background: var(--ln-bg-end);
+	z-index: 3;
+	pointer-events: none;
+	will-change: transform;
+	opacity: 0;
+}
+
+.ln-curtain--top {
+	top: 0;
+	height: 50vh;
+	transform: translateY(0);
+}
+
+.ln-curtain--bottom {
+	bottom: 0;
+	height: 50vh;
+	transform: translateY(0);
+}
+
+/* Phase wiring (runs only when mounted + is-running) */
+.ln-loader:not(.is-running) .ln-stage {
+	opacity: 0;
+}
+
+.ln-loader.is-running .ln-stage {
+	animation: lnShow 1ms linear var(--ln-t-blank) both;
+}
+
+.ln-loader.is-running .ln-markPath {
+	animation:
+		lnDraw var(--ln-t-draw) var(--ln-ease) var(--ln-d-draw) forwards,
+		lnFill var(--ln-t-fill) var(--ln-ease-soft) var(--ln-d-fill) forwards,
+		lnToGold var(--ln-t-flip) var(--ln-ease-soft) var(--ln-d-flip) forwards;
+}
+
+.ln-loader.is-running .ln-word {
+	animation:
+		lnTextIn var(--ln-t-shift) var(--ln-ease) var(--ln-d-shift) forwards,
+		lnTextToGold var(--ln-t-flip) var(--ln-ease-soft) var(--ln-d-flip) forwards;
+}
+
+.ln-loader.is-running .ln-lockup {
+	animation: lnShift var(--ln-t-shift) var(--ln-ease) var(--ln-d-shift) forwards;
+}
+
+.ln-loader.is-running .ln-bgFlip {
+	animation: lnFlipAway var(--ln-t-flip) var(--ln-ease) var(--ln-d-flip) forwards;
+}
+
+.ln-loader.is-running .ln-curtain--top {
+	animation: lnCurtainTop var(--ln-t-curtain) var(--ln-ease) var(--ln-d-curtain) forwards;
+}
+
+.ln-loader.is-running .ln-curtain--bottom {
+	animation: lnCurtainBottom var(--ln-t-curtain) var(--ln-ease) var(--ln-d-curtain) forwards;
+}
+
+@keyframes lnShow {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+/* Phase 1: outline draw */
+@keyframes lnDraw {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+/* Phase 1: fill after stroke completes */
+@keyframes lnFill {
+	to {
+		fill-opacity: 1;
+	}
+}
+
+/* Phase 2: shift mark slightly left */
+@keyframes lnShift {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(clamp(-52px, -5.5vw, -28px));
+	}
+}
+
+/* Phase 2: text appears to the right */
+@keyframes lnTextIn {
+	from {
+		opacity: 0;
+		transform: translateX(-10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* Phase 3: background flips to blue */
+@keyframes lnFlipAway {
+	0% {
+		transform: perspective(1200px) rotateX(-88deg) scaleY(0.02);
+		opacity: 0;
+	}
+
+	100% {
+		transform: perspective(1200px) rotateX(0deg) scaleY(1);
+		opacity: 1;
+	}
+}
+
+/* Phase 3: mark + text to gold */
+@keyframes lnToGold {
+	to {
+		stroke: var(--ln-mark-end);
+		fill: var(--ln-mark-end);
+	}
+}
+
+@keyframes lnTextToGold {
+	to {
+		color: var(--ln-mark-end);
+	}
+}
+
+/* Phase 4: vertical curtain reveal */
+@keyframes lnCurtainTop {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(-105%);
+	}
+}
+
+@keyframes lnCurtainBottom {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(105%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ln-loader.is-running .ln-markPath,
+	.ln-loader.is-running .ln-word,
+	.ln-loader.is-running .ln-lockup,
+	.ln-loader.is-running .ln-bgFlip,
+	.ln-loader.is-running .ln-curtain {
+		animation: none !important;
+	}
+
+	.ln-stage {
+		opacity: 1 !important;
+	}
+
+	.ln-markPath {
+		stroke-dashoffset: 0;
+		fill-opacity: 1;
+		stroke: var(--ln-mark-end);
+		fill: var(--ln-mark-end);
+	}
+
+	.ln-word {
+		opacity: 1;
+		transform: none;
+		color: var(--ln-mark-end);
+	}
+
+	.ln-bgFlip {
+		opacity: 0;
+	}
+
+	.ln-curtain {
+		display: none;
+	}
+}

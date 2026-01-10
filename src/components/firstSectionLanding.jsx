@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import LightPillar from './LightPillar/LightPillar';
 import './firstSectionLanding.css';
 import ShinyText from './ShinyText/ShinyText';
-import LoadingScreen from './loadingScreen';
+import LoadingPage from './LOADINGPAGE/loading';
 import Navbar from './navbar';
 
 function FirstDivLanding() {
@@ -22,9 +22,17 @@ function FirstDivLanding() {
 
     return (
         <div>
-            <LoadingScreen
+            <LoadingPage
                 isVisible={showLoader}
                 onLoadingComplete={() => setShowLoader(false)}
+                config={{
+                    colors: {
+                        bgStart: '#ffffff',
+                        bgEnd: '#141d2f',
+                        markStart: '#000000',
+                        markEnd: '#d7b07a',
+                    },
+                }}
             />
             {!showLoader && (
                 <div className="landing-container">
