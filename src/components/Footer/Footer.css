@@ -83,7 +83,9 @@
 
 .ln-footer__description {
 	font-family: "Playfair Display", serif;
-	font-weight: 400;
+	font-weight: 300;
+	font-style: normal;
+	font-synthesis: none;
 	font-size: 16px;
 	line-height: 1.2;
 	letter-spacing: 0;
