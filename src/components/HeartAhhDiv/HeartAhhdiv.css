@@ -1,0 +1,176 @@
+.heart-ahh-container {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  background: linear-gradient(180deg, #070111 25.22%, rgba(7, 1, 17, 0) 54.89%, #060110 81.83%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* vertical padding only - horizontal padding handled by content-wrapper to match Projects */
+  padding: 100px 0;
+  gap: 0;
+}
+
+.heart-ahh-container::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url('./heartAhhBG.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heart-ahh-container::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, rgba(7, 1, 17, 0) 0%, rgba(7, 1, 17, 0.3) 40%, rgba(6, 1, 16, 0.8) 80%, #060110 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart-vector {
+  position: absolute;
+  width: 63.14px;
+  height: 57px;
+  top: 14%;
+  left: 39.5%;
+  transform: translateX(-490px);
+  background: linear-gradient(180deg, #2059FF 0%, #D3861C 100%);
+  box-shadow: 0px 6.14px 10.96px 0px #E6BC8240;
+  backdrop-filter: blur(4.3px);
+  filter: blur(10px);
+  clip-path: path('M31.57 5.43c-8.5-7.24-21.13-6.13-28.13 2.48a20.57 20.57 0 0 0 0 28.96l26.56 26.56a1.5 1.5 0 0 0 2.12 0l26.56-26.56a20.57 20.57 0 0 0 0-28.96c-7-8.61-19.63-9.72-28.13-2.48z');
+  transform-origin: center;
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  flex-shrink: 0;
+}
+
+.content h1 {
+  font-size: 6.5rem;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-right: 0px ;
+  font-family: 'Playfair Display', serif;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  /* match Projects container max-width and horizontal padding */
+  max-width: 1728px;
+  margin: 0 auto;
+  padding: 0 clamp(28px, 6vw, 120px);
+  gap: 60px;
+}
+
+.build-button {
+  position: relative;
+  z-index: 2;
+  padding: 14px 58px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 200;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  height: fit-content;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.build-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .heart-ahh-container {
+    min-height: 600px;
+    padding: 60px 30px;
+    align-items: flex-start;
+  }
+
+  .heart-ahh-container::before {
+    background-position: top center;
+    background-size: cover;
+  }
+
+  .heart-vector {
+    top: 60px;
+    left: 30px;
+    transform: none;
+    width: 50px;
+    height: 45px;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    max-width: 100%;
+    margin-top: 120px;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  .build-button {
+    padding: 12px 32px;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .heart-ahh-container {
+    padding: 50px 20px;
+  }
+
+  .heart-vector {
+    top: 50px;
+    left: 20px;
+    width: 45px;
+    height: 40px;
+  }
+
+  .content-wrapper {
+    margin-top: 100px;
+  }
+
+  .build-button {
+    padding: 10px 28px;
+  }
+
+  
+  .content h1 {
+    font-size: 5.5rem;
+    line-height: 1.2;
+  }
+}
