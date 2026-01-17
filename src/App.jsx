@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import FirstSectionLanding from './components/firstSectionLanding'
-import SecondSection from './components/secondSection'
+import OurServices from './components/OurServices'
 import Footer from './components/Footer/Footer'
 import HeartAhhdiv from './components/HeartAhhDiv/HeartAhhdiv'
 import ProjectSection from './components/Projectsection/projectsection'
@@ -11,10 +11,10 @@ function App() {
   return (
     <>
       <FirstSectionLanding />
-      <SecondSection />
+      <OurServices />
       <HeartAhhdiv />
-      <ProjectSection /> 
-	  <Footer />
+      <ProjectSection />
+      <Footer />
     </>
   )
 }
