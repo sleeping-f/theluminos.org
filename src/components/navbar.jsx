@@ -27,6 +27,10 @@ const Navbar = () => {
         setMenuOpen(!menuOpen);
     };
 
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
+
     return (
         <nav className={`nav ${affix ? 'affix' : ''}`}>
             <div className="container">
@@ -49,28 +53,28 @@ const Navbar = () => {
                 </div>
                 <div id="mainListDiv" className={`main_list ${menuOpen ? 'show_list' : ''}`}>
                     <ul className="navlinks">
-                        <li><a href="#"><DecryptedText
+                        <li><a href="#services" onClick={closeMenu}><DecryptedText
                             text="Services"
                             speed={42}
                             maxIterations={22}
                             revealDirection="start"
                             animateOn="hover"
                         /></a></li>
-                        <li><a href="#"><DecryptedText
+                        <li><a href="#projects" onClick={closeMenu}><DecryptedText
                             text="Projects"
                             speed={42}
                             maxIterations={22}
                             revealDirection="start"
                             animateOn="hover"
                         /></a></li>
-                        <li><a href="#"><DecryptedText
+                        <li><a href="#clients" onClick={closeMenu}><DecryptedText
                             text="Clients"
                             speed={42}
                             maxIterations={22}
                             revealDirection="start"
                             animateOn="hover"
                         /></a></li>
-                        <li><a href="#"><DecryptedText
+                        <li><a href="#contact" onClick={closeMenu}><DecryptedText
                             text="Contact"
                             speed={42}
                             maxIterations={22}
@@ -78,7 +82,7 @@ const Navbar = () => {
                             animateOn="hover"
                         /></a></li>
                         <li>
-                            <a href="#" className="start-project-btn">
+                            <a href="#contact" className="start-project-btn" onClick={closeMenu}>
                                 <span className="plus-icon">+</span> Start Project
                             </a>
                         </li>

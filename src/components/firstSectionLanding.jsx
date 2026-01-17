@@ -80,7 +80,7 @@ That Click"
         </div>
 
 
-        <div className="trusted-by-section">
+        <div className="trusted-by-section" id="clients">
           <ShinyText
             className="trusted-by-section-text"
             text="Trusted by founders like"

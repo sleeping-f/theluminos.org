@@ -11,10 +11,16 @@ function App() {
   return (
     <>
       <FirstSectionLanding />
-      <OurServices />
+      <section id="services">
+        <OurServices />
+      </section>
       <HeartAhhdiv />
-      <ProjectSection />
-      <Footer />
+      <section id="projects">
+        <ProjectSection />
+      </section>
+      <section id="contact">
+        <Footer />
+      </section>
     </>
   )
 }
