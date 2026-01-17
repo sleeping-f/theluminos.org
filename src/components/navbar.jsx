@@ -37,8 +37,8 @@ const Navbar = () => {
                             text="TheLumiNos"
                             speed={3.3}
                             delay={0}
-                            color="#cbcab5ff"
-                            shineColor="#fffce0ff"
+                            color="#E6BC82"
+                            shineColor="#e0caab"
                             spread={120}
                             direction="left"
                             yoyo={true}
@@ -50,21 +50,21 @@ const Navbar = () => {
                 <div id="mainListDiv" className={`main_list ${menuOpen ? 'show_list' : ''}`}>
                     <ul className="navlinks">
                         <li><a href="#"><DecryptedText
-                            text="Work"
-                            speed={42}
-                            maxIterations={22}
-                            revealDirection="start"
-                            animateOn="hover"
-                        /></a></li>
-                        <li><a href="#"><DecryptedText
-                            text="About"
-                            speed={42}
-                            maxIterations={22}
-                            revealDirection="start"
-                            animateOn="hover"
-                        /></a></li>
-                        <li><a href="#"><DecryptedText
                             text="Services"
+                            speed={42}
+                            maxIterations={22}
+                            revealDirection="start"
+                            animateOn="hover"
+                        /></a></li>
+                        <li><a href="#"><DecryptedText
+                            text="Projects"
+                            speed={42}
+                            maxIterations={22}
+                            revealDirection="start"
+                            animateOn="hover"
+                        /></a></li>
+                        <li><a href="#"><DecryptedText
+                            text="Clients"
                             speed={42}
                             maxIterations={22}
                             revealDirection="start"
