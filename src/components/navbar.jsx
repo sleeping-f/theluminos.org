@@ -77,10 +77,15 @@ const Navbar = () => {
                             revealDirection="start"
                             animateOn="hover"
                         /></a></li>
+                        <li>
+                            <a href="#" className="start-project-btn">
+                                <span className="plus-icon">+</span> Start Project
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <span className={`navTrigger ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
-                    <i>a</i>
+                    <i></i>
                     <i></i>
                     <i></i>
                 </span>
