@@ -6,7 +6,7 @@ import LoadingPage from './LOADINGPAGE/loading';
 import Navbar from './navbar';
 import vectorBg from '../assets/Vector.png';
 import companies from '../assets/companies.png';
-import that from '../assets/that.png';
+import that from '../assets/That.png';
 import maintext from '../assets/mainText.png';
 
 function FirstDivLanding() {
